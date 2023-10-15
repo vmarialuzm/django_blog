@@ -24,6 +24,11 @@ class Index(View):
     def get(self, request):
         posts = Post.objects.all()
         context = {'posts': posts}
-        return render(request, "blog/index.html", context)
+        return render(request, 'blog/index.html', context)
+
+def post_details(request, id):
+    post = Post.objects.get(id=id)
+    context = {'post': post}
+    return render(request, 'blog/post_details.html', context)
     
 

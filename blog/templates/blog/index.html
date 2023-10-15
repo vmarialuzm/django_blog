@@ -3,15 +3,27 @@
 {% block content %} 
 <h1>Lista de Posts</h1>
 
-{% for post in posts %}
-<div class="card" style="width: 18rem;">
-    <img src="{{ post.image.url }}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{ post.title }}</h5>
-      <h5 class="card-title">{{ post.user }}</h5>
-      <p class="card-text">{{ post.content }}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+  {% for post in posts %}
+  <div class="col">
+
+    <div class="card h-100">
+      <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.content }}</p>
+        <a href="{% url 'post_details' post.id %}" class="btn btn-primary">Ver detalles</a>
+      </div>
+      <div class="card-footer">
+        <small class="text-body-secondary">{{ post.user }}</small>
+      </div>
     </div>
+
+  </div>
+
+  {% endfor %}
 </div>
-{% endfor %}
+
 {% endblock content %}
