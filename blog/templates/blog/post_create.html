@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<h1>Creando Post</h1>
+
+    <form method="post" enctype="multipart/form-data" novalidate class="mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-success" type="submit">Crear</button>
+    </form>
+    
+{% endblock content %}
