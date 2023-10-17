@@ -37,18 +37,13 @@ class PostDetailView(LoginRequiredMixin, View):
     
     def post(self, request, id):
         form = CommentForm(request.POST)
-        print("1")
         if form.is_valid():
             form.instance.user = request.user
-            print("2")
             form.instance.post_id = id
             form.save()
             messages.success(self.request, 'El comentario se ha creado con éxito')
-            print("5")
         else:
-            print("3")
             messages.error(self.request, 'Por favor, completa todos los campos requeridos')
-        print("4")
         return redirect('post_details', id=id)
 
 

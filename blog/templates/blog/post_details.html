@@ -22,7 +22,9 @@
 </div> 
 
 {% for comment in comments %}
-  <p><strong>{{ comment.user.username}}: </strong>{{ comment.content }}</p>
+  {% if post.id == comment.post_id %}
+    <p><strong>{{ comment.user.username}}: </strong>{{ comment.content }}</p>
+  {% endif %}
 {% endfor %}
 
 <form method="post" enctype="multipart/form-data" novalidate class="mt-3">
