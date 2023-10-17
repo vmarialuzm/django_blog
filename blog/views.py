@@ -31,20 +31,24 @@ class PostDetailView(LoginRequiredMixin, View):
 
     def get(self, request, id):
         post = Post.objects.get(id=id)
-        messages = Comment.objects.all()
+        comments = Comment.objects.all()
         form = CommentForm()
-        return render(request, "blog/post_details.html", {'post': post, 'messages': messages, 'form': form})
+        return render(request, "blog/post_details.html", {'post': post, 'comments': comments, 'form': form})
     
     def post(self, request, id):
         form = CommentForm(request.POST)
+        print("1")
         if form.is_valid():
             form.instance.user = request.user
-            form.post_id = id
+            print("2")
+            form.instance.post_id = id
             form.save()
-            messages.success(request, 'El comentario se ha creado con éxito')
+            messages.success(self.request, 'El comentario se ha creado con éxito')
+            print("5")
         else:
-            messages.error(request, 'Por favor, completa todos los campos requeridos')
-        
+            print("3")
+            messages.error(self.request, 'Por favor, completa todos los campos requeridos')
+        print("4")
         return redirect('post_details', id=id)
 
 
