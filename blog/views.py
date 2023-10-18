@@ -34,7 +34,13 @@ class PostDetailView(View):
         comments = Comment.objects.all()
         form = CommentForm()
         count_comments = len(Comment.objects.filter(post_id=post.id))
-        return render(request, "blog/post_details.html", {'post': post, 'comments': comments, 'form': form, 'count_comments': count_comments})
+        context = {
+            'post': post, 
+            'comments': comments, 
+            'form': form, 
+            'count_comments': count_comments
+        }
+        return render(request, "blog/post_details.html", context)
     
     def post(self, request, id):
         form = CommentForm(request.POST)
@@ -48,7 +54,34 @@ class PostDetailView(View):
                 messages.error(self.request, 'Por favor, completa todos los campos requeridos')
         else:
             messages.error(self.request, "Debes logearte para realizar comentarios...")
-            
+
         return redirect('post_details', id=id)
+
+
+def update(request, id):
+    if request.user.is_authenticated:
+        comment = Comment.objects.get(id=id)
+        if request.user.id == comment.user_id:
+            if request.method == 'POST':
+                form = CommentForm(request.POST, instance=comment)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Comentario actualizado exitosamente!")
+                    return redirect('post_details', id=comment.post_id)
+            else:
+                form = CommentForm(instance=comment)
+            return render(request, 'blog/comment_update.html', {'form': form, 'comment': comment})
+    return redirect('post_details', id=comment.post_id)   
+
+def delete(request, id):
+    if request.user.is_authenticated:
+        deleted_it = Comment.objects.get(id=id)
+        if request.user.id == deleted_it.user_id:
+            deleted_it.delete()
+            messages.success(request, "Comentario borrado exitosamente")
+            return redirect('post_details', id=deleted_it.post_id)
+    
+                
+
 
 
