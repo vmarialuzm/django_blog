@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %} 
-<h1>Creando Post</h1>
+<div class="mt-5">
+    <div class="card" style="width: 50%; margin: auto">
+        <div class="card-body">
 
-    <form method="post" enctype="multipart/form-data" novalidate class="mt-3">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success" type="submit">Crear</button>
-    </form>
+            <h1 class="text-center" >Creando Post</h1>
+
+            <form method="post" enctype="multipart/form-data" novalidate class="mt-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid">
+                    <button class="btn btn-success" type="submit">Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     
 {% endblock content %}

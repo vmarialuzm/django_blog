@@ -3,12 +3,18 @@
 <div class="mt-5">
   <div class="card" style="width: 50%; margin: auto">
     <div class="card-body">
-      <h2>Register</h2>
+
+      <h1 class="text-center">Register</h1>
+
       <form method="post" novalidate>
-        {% csrf_token %} {{ form.as_p }}
+
+        {% csrf_token %} 
+        {{ form.as_p }}
+
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+            <button type="submit" class="btn btn-success">Crear Usuario</button>
         </div>
+
       </form>
     </div>
   </div>

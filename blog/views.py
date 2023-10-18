@@ -27,7 +27,7 @@ class Index(View):
         context = {'posts': posts}
         return render(request, 'blog/index.html', context)
 
-class PostDetailView(LoginRequiredMixin, View):
+class PostDetailView(View):
 
     def get(self, request, id):
         post = Post.objects.get(id=id)
