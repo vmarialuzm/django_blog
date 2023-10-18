@@ -33,7 +33,8 @@ class PostDetailView(LoginRequiredMixin, View):
         post = Post.objects.get(id=id)
         comments = Comment.objects.all()
         form = CommentForm()
-        return render(request, "blog/post_details.html", {'post': post, 'comments': comments, 'form': form})
+        count_comments = len(Comment.objects.filter(post_id=post.id))
+        return render(request, "blog/post_details.html", {'post': post, 'comments': comments, 'form': form, 'count_comments': count_comments})
     
     def post(self, request, id):
         form = CommentForm(request.POST)

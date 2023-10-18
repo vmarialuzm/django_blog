@@ -1,29 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %} 
-<h1>Lista de Posts</h1>
-
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-
+<h1 class="text-center">Lista de Posts</h1>
+<br>
+<div class="row text-center">
   {% for post in posts %}
-  <div class="col">
-
-    <div class="card h-100">
-      <img src="{{ post.image.url }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text">{{ post.content }}</p>
-        <a href="{% url 'post_details' post.id %}" class="btn btn-primary">Ver detalles</a>
-      </div>
-      <div class="card-footer">
-        <small class="text-body-secondary">{{ post.user }}</small>
-      </div>
+    <div class="col-4">
+      <figure>
+        {{ post.id }}
+        <blockquote class="blockquote">
+          <p>{{ post.title }}</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+          {{ post.user }}
+        </figcaption>
+        <a class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{% url 'post_details' post.id %}">
+          Ver más
+          <i class="bi bi-arrow-right"></i>
+        </a>
+      </figure>
     </div>
-
-  </div>
-
   {% endfor %}
 </div>
+
 
 {% endblock content %}
