@@ -38,13 +38,17 @@ class PostDetailView(View):
     
     def post(self, request, id):
         form = CommentForm(request.POST)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.instance.post_id = id
-            form.save()
-            messages.success(self.request, 'El comentario se ha creado con éxito')
+        if request.user.is_authenticated:
+            if form.is_valid():
+                form.instance.user = request.user
+                form.instance.post_id = id
+                form.save()
+                messages.success(self.request, 'El comentario se ha creado con éxito')
+            else:
+                messages.error(self.request, 'Por favor, completa todos los campos requeridos')
         else:
-            messages.error(self.request, 'Por favor, completa todos los campos requeridos')
+            messages.error(self.request, "Debes logearte para realizar comentarios...")
+            
         return redirect('post_details', id=id)
 
 
