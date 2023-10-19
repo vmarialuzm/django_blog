@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import FormView, View
+from django.urls import reverse_lazy
+from django.views.generic import FormView, View, UpdateView, DeleteView
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +20,28 @@ class CreatePost(LoginRequiredMixin, FormView):
     def form_invalid(self, form):
         messages.error(self.request, 'Por favor, completa todos los campos requeridos')
         return super().form_invalid(form)
+
+class PostUpdateView(LoginRequiredMixin,UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_update.html'
+
+    def form_valid(self, form):
+        if form.instance.user == self.request.user:
+            form.save()
+            messages.success(self.request, 'La publicación se ha editado con éxito') 
+        else:
+            messages.error(self.request, 'Sólo pueda editar el autor del post')
+        return redirect('index')
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Por favor, completa todos los campos requeridos')
+        return super().form_invalid(form)
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('index')
+
 
 class Index(View):
     def get(self, request):
