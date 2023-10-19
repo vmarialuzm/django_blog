@@ -59,18 +59,20 @@ class PostDetailView(View):
 
 
 def update(request, id):
+    print(request.user)
     if request.user.is_authenticated:
         comment = Comment.objects.get(id=id)
+        print("1")
         if request.user.id == comment.user_id:
-            if request.method == 'POST':
-                form = CommentForm(request.POST, instance=comment)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, "Comentario actualizado exitosamente!")
-                    return redirect('post_details', id=comment.post_id)
-            else:
-                form = CommentForm(instance=comment)
-            return render(request, 'blog/comment_update.html', {'form': form, 'comment': comment})
+            print("2")
+            form = CommentForm(request.POST or None, instance=comment)
+            print(form)
+            if form.is_valid():
+                print("4")
+                form.save()
+                messages.success(request, "Comentario actualizado exitosamente!")
+                return redirect('post_details', id=comment.post_id)
+            return render(request, 'blog/post_details.html', {'form': form})
     return redirect('post_details', id=comment.post_id)   
 
 def delete(request, id):
