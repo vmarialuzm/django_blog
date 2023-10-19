@@ -1,5 +1,4 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import FormView, View
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
@@ -82,8 +81,31 @@ def delete(request, id):
             deleted_it.delete()
             messages.success(request, "Comentario borrado exitosamente")
             return redirect('post_details', id=deleted_it.post_id)
-    
-                
 
+def like_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+
+    if request.user in post.liked_by.all():
+        post.liked_by.remove(request.user)
+    else:
+        post.liked_by.add(request.user)
+        post.disliked_by.remove(request.user)
+    
+    post.save()
+    
+    return redirect('index')
+
+def disliked_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+
+    if request.user in post.disliked_by.all():
+        post.disliked_by.remove(request.user)
+    else:
+        post.disliked_by.add(request.user)
+        post.liked_by.remove(request.user)
+    
+    post.save()
+    
+    return redirect('index')
 
 

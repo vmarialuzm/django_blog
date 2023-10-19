@@ -14,6 +14,16 @@
         <figcaption class="blockquote-footer">
           {{ post.user }}
         </figcaption>
+
+        <!-- Conteo de likes y dislikes -->
+        
+        <span>{{ post.liked_by.count }}</span> Likes
+        <span>{{ post.disliked_by.count }}</span> Dislikes
+        <br>
+        <a class="btn btn-warning" href="{% url 'like_post' post.id %}" class="btn btn-danger">Likes</a>
+        <a class="btn btn-warning" href="{% url 'disliked_post' post.id %}" class="btn btn-danger">Dislikes</a>
+        
+        <br>
         <a class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{% url 'post_details' post.id %}">
           Ver más
           <i class="bi bi-arrow-right"></i>
