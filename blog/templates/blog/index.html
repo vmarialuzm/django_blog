@@ -5,10 +5,9 @@
 <br>
 <div class="row text-center">
   {% for post in posts %}
-    <div class="col-4">
+    <div class="col-4 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
       <figure>
         <blockquote class="blockquote">
-          <span>{{ post.id }}</span>
           <p>{{ post.title }}</p>
         </blockquote>
         <figcaption class="blockquote-footer">
@@ -20,19 +19,23 @@
         <span>{{ post.liked_by.count }}</span> Likes
         <span>{{ post.disliked_by.count }}</span> Dislikes
         <br>
-        <a class="btn btn-warning" href="{% url 'like_post' post.id %}" class="btn btn-danger">Likes</a>
-        <a class="btn btn-warning" href="{% url 'disliked_post' post.id %}" class="btn btn-danger">Dislikes</a>
+        <a class="hand-button" href="{% url 'like_post' post.id %}" class="btn btn-danger">
+          <i class="bi bi-hand-thumbs-up" style="font-size: 2em;"></i>
+        </a>
+        <a class="hand-button" href="{% url 'disliked_post' post.id %}" class="btn btn-danger">
+          <i class="bi bi-hand-thumbs-down" style="font-size: 2em;"></i>
+        </a>
         
         <br>
-        <a href="{% url 'post_update' post.id %}">Actualizar</a>
 
+        <a class="btn btn-light" href="{% url 'post_update' post.id %}">Actualizar</a>
         {% if user.id == post.user_id %}
           <form method="POST" action="{% url 'post_delete' post.id %}">
             {% csrf_token %}
-            <input type="submit" value="Eliminar">
+            <input class="btn btn-danger" type="submit" value="Eliminar">
           </form>
         {% endif %}
-        
+
         <a class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{% url 'post_details' post.id %}">
           Ver más
           <i class="bi bi-arrow-right"></i>

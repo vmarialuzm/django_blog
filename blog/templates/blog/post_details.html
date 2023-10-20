@@ -28,7 +28,7 @@
 
               <!-- Permite editar y eliminar los comentarios a su autor -->
               {% if user.id == comment.user_id %}
-                <button class="edit-button" data-comment-id="{{ comment.id }}">Editar</button>
+                <button class="edit-button btn btn-secondary" data-comment-id="{{ comment.id }}">Editar</button>
                 <a href="{% url 'comment_delete' comment.id %}" class="btn btn-danger">Delete</a>
 
                 <div class="edit-form mt-3" id="edit-form-{{ comment.id }}" style="display: none;">
