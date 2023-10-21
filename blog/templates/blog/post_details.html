@@ -9,7 +9,11 @@
 
 <a class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#list-item-1">{{count_comments}} comentarios</a> <i class="bi bi-chat"></i>
 <hr>
-<img src="{{ post.image }}" class="img-fluid" alt="...">
+<div style="text-align: center;">
+  <div style="display: inline-block;">
+    <img src="{{ post.image }}" alt="{{ post.title }}" class="img-fluid">
+  </div>
+</div>
 
 
 <!-- lista los comentarios por post -->
