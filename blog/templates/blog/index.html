@@ -3,29 +3,28 @@
 {% block content %} 
 <h1 class="text-center">Lista de Posts</h1>
 <br>
+
 <div class="row text-center">
   {% for post in posts %}
-    <div class="col-4 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-      <figure>
-        <blockquote class="blockquote">
-          <p>{{ post.title }}</p>
-        </blockquote>
-        <figcaption class="blockquote-footer">
-          {{ post.user }}
-        </figcaption>
+    <div class="col-md-4 col-sm-6 col-12 mb-4 shadow-lg">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.user }}</p>
+      </div>
 
+       
         <!-- Conteo de likes y dislikes -->
-        
-        <span>{{ post.liked_by.count }}</span> Likes
-        <span>{{ post.disliked_by.count }}</span> Dislikes
-        <br>
-        <a class="hand-button" href="{% url 'like_post' post.id %}" class="btn btn-danger">
+      <span>{{ post.liked_by.count }}</span> Likes
+      <span>{{ post.disliked_by.count }}</span> Dislikes
+
+      <div class="card-body">
+        <a class="hand-button" href="{% url 'like_post' post.id %}">
           <i class="bi bi-hand-thumbs-up" style="font-size: 2em;"></i>
         </a>
-        <a class="hand-button" href="{% url 'disliked_post' post.id %}" class="btn btn-danger">
+        <a class="hand-button" href="{% url 'disliked_post' post.id %}">
           <i class="bi bi-hand-thumbs-down" style="font-size: 2em;"></i>
         </a>
-        
+
         <br>
 
         <a class="btn btn-light" href="{% url 'post_update' post.id %}">Actualizar</a>
@@ -40,7 +39,7 @@
           Ver más
           <i class="bi bi-arrow-right"></i>
         </a>
-      </figure>
+      </div>  
     </div>
   {% endfor %}
 </div>
