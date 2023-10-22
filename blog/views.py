@@ -84,13 +84,9 @@ def update(request, id):
     print(request.user)
     if request.user.is_authenticated:
         comment = Comment.objects.get(id=id)
-        print("1")
         if request.user.id == comment.user_id:
-            print("2")
             form = CommentForm(request.POST or None, instance=comment)
-            print(form)
             if form.is_valid():
-                print("4")
                 form.save()
                 messages.success(request, "Comentario actualizado exitosamente!")
                 return redirect('post_details', id=comment.post_id)

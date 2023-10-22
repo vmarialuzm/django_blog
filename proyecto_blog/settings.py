@@ -14,6 +14,12 @@ from pathlib import Path
 import environ
 import os
 
+# Cloudinary imports
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 env = environ.Env(DEBUG=(bool, False))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,6 +53,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',   
     'users',
     'blog',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +153,12 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 
+# Cloudinary - Django integration
+
+import cloudinary
+          
+cloudinary.config( 
+  cloud_name = "dbe88hckk", 
+  api_key = "513929725166659", 
+  api_secret = "0YUMB08X4zORp86rKt8xXnXo54s" 
+)
